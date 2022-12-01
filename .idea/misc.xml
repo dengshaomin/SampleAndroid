@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.21666666666666667" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/lg_widget_core_icon_checkbox_selected_20.xml" value="0.1055" />
+        <entry key="app/src/main/res/drawable/lg_widget_core_icon_checkbox_unselected_20.xml" value="0.1055" />
+        <entry key="app/src/main/res/drawable/lg_widget_core_selector_checkbox.xml" value="0.1055" />
+        <entry key="app/src/main/res/drawable/pe_filter_item_bg.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/pe_filter_item_bg_s.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/pe_filter_item_selector.xml" value="0.1235" />
+        <entry key="app/src/main/res/drawable/pe_filter_seekbar.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/pe_filter_seekbar_revert.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/pe_filter_seekbar_thumb.xml" value="0.1235" />
+        <entry key="app/src/main/res/layout/activity_flutter_enter.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_hook.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/layout/activity_language.xml" value="0.24010416666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_touch.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_view_pager.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_web.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/component_pe_router_plan_filter.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_filter_alert.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_filter_input.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_pe_router_filter.xml" value="0.15185185185185185" />
+        <entry key="app/src/main/res/layout/item_banner_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/view_chose_filter.xml" value="0.19667590027700832" />
+        <entry key="app/src/main/res/layout/view_chose_item.xml" value="0.24010416666666667" />
+        <entry key="app/src/main/res/layout/view_pe_route_plan_filter.xml" value="0.15185185185185185" />
+        <entry key="app/src/main/res/layout/view_power_banner.xml" value="0.24010416666666667" />
+        <entry key="app/src/main/res/layout/view_seek_filter.xml" value="0.125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

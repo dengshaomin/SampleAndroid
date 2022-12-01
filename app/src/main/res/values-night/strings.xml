@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AutoTEST</string>
+
+    <string name="language">language</string>
+    <string name="game_view_content_description">Game view</string>
+    <string name="test_str">comment is %d</string>
+</resources>
