@@ -64,6 +64,7 @@ android {
         enabled = true
     }
 }
+
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'com.google.code.gson:gson:2.8.6'
