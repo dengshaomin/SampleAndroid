@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.webkit.WebResourceResponse
-import com.balance.sample.MineApplication
+import com.balance.sample.App
 import okhttp3.Cache
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -50,7 +50,7 @@ object OkHttpCacheManager {
     init {
         //设置缓存的目录文件
         val httpCacheDirectory =
-            File(MineApplication.application.externalCacheDir, "x-webview-http-cache")
+            File(App.application.externalCacheDir, "x-webview-http-cache")
         //仅作为日志使用
         if (httpCacheDirectory.exists()) {
             val result = httpCacheDirectory.listFiles()

@@ -15,7 +15,7 @@ class FlutterEnterActivity : AppCompatActivity() {
         NativeMethodChannel.instance.init(this.applicationContext)
         setContentView(R.layout.activity_flutter_enter)
         default_route.setOnClickListener {
-            startActivity(FlutterActivity.withNewEngine().build(this))
+            startActivity(FlutterActivity.withCachedEngine("cache_0").build(this))
         }
         target_route.setOnClickListener {
             startActivity(FlutterActivity.withNewEngine().initialRoute("video").build(this))
@@ -23,7 +23,7 @@ class FlutterEnterActivity : AppCompatActivity() {
         community.setOnClickListener {
             startActivity(Intent(this,CommunityActivity::class.java))
         }
-        startActivityForResult(Intent(this,CommunityActivity::class.java),1000)
+//        startActivityForResult(Intent(this,CommunityActivity::class.java),1000)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

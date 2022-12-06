@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
-class MineApplication : Application() {
+class App : Application() {
     companion object {
         lateinit var application: Application
     }
