@@ -2,6 +2,20 @@ pipeline {
     agent any
 
     stages {
+        stage('commit log'){
+            steps{
+                commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
+
+                String commitMsg = ""
+
+                List commitMsgPre = commit.split(" ")
+
+                for(int i=1; i<commitMsgPre.size(); i++){
+                  commitMsg += commitMsgPre.getAt(i) + " "
+                }
+                echo "commitmsg:$commitMsg"
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building..'
