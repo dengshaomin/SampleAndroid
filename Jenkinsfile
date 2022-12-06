@@ -17,6 +17,7 @@ pipeline {
                                 echo "  ${file.editType.name} ${file.path}"
                             }
                         }
+
                     }
                 }
             }
