@@ -5,14 +5,19 @@ pipeline {
         stage('commit log'){
             steps{
                 script{
-                    commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
-                    String commitMsg = ""
-                    List commitMsgPre = commit.split(" ")
-                    echo "commitmsg-0:$commitMsgPre"
-                    for(int i=0; i<commitMsgPre.size(); i++){
-                      commitMsg += commitMsgPre.getAt(i) + " "
+                    def changeLogSets = currentBuild.changeSets
+                    for (int i = 0; i < changeLogSets.size(); i++) {
+                        def entries = changeLogSets[i].items
+                        for (int j = 0; j < entries.length; j++) {
+                            def entry = entries[j]
+                            echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+                            def files = new ArrayList(entry.affectedFiles)
+                            for (int k = 0; k < files.size(); k++) {
+                                def file = files[k]
+                                echo "  ${file.editType.name} ${file.path}"
+                            }
+                        }
                     }
-                    echo "commitmsg-1:$commitMsg"
                 }
             }
         }
