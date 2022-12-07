@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+     parameters {
+          choice choices: ['Test', 'Release'], description: '包类型', name: 'PackageType'
+        }
     stages {
         stage('commit log'){
             steps{
@@ -17,7 +19,6 @@ pipeline {
                                 echo "  ${file.editType.name} ${file.path}"
                             }
                         }
-
                     }
                 }
             }
