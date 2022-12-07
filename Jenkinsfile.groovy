@@ -41,6 +41,6 @@ pipeline {
         }
     }
 }
-def changeTime(Date date){
-    return date.format("yyyy-MM-dd HH:mm:ss")
+def changeTime(long time){
+    return new Date(time).format("yyyy-MM-dd HH:mm:ss")
 }
