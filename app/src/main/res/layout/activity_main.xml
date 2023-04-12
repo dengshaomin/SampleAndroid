@@ -14,7 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/purple_200"
+                android:gravity="center"
+                android:onClick="enterPreloadWeb"
+                android:padding="10dp"
+                android:text="preload webview" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,6 +81,15 @@
                 android:onClick="enterHook"
                 android:padding="10dp"
                 android:text="hook" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/purple_200"
+                android:gravity="center"
+                android:onClick="enterWifiScan"
+                android:padding="10dp"
+                android:text="wifi scan" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

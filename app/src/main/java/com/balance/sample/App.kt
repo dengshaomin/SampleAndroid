@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.os.IBinder
 import android.os.IInterface
 import android.util.Log
+import com.balance.sample.preweb.WebFactory
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -33,6 +34,7 @@ class App : Application() {
             .getInstance()
             .put("cache_0", flutterEngine)
 //        hookClipBoardService()
+        WebFactory.instance.init(application,2)
     }
     private fun hookClipBoardService() {
         val serviceManager = Class.forName("android.os.ServiceManager")

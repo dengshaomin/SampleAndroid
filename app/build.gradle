@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.balance.sample"
         minSdk 21
-        targetSdk 29
+        targetSdk 33
         compileSdk 31
         versionCode 1
         versionName "1.0"
@@ -63,6 +63,23 @@ android {
         enabled = true
     }
 }
+//apply plugin: 'replugin-host-gradle'
+//repluginHostConfig {
+//    /**
+//     * 是否使用 AppCompat 库
+//     * 不需要个性化配置时，无需添加
+//     */
+//    useAppCompat = true
+//    /**
+//     * 背景不透明的坑的数量
+//     * 不需要个性化配置时，无需添加
+//     */
+//    countNotTranslucentStandard = 6
+//    countNotTranslucentSingleTop = 2
+//    countNotTranslucentSingleTask = 3
+//    countNotTranslucentSingleInstance = 2
+//}
+
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -96,9 +113,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     implementation 'com.github.MohammadSianaki:Retrofit2-Flow-Call-Adapter:0.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
-
     kapt 'com.google.auto.service:auto-service:1.0.1'
     implementation 'com.google.auto.service:auto-service:1.0.1'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.github.tbruyelle:rxpermissions:0.12'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.4'
 }
