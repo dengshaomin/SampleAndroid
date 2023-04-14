@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.balance.sample.autoservice.ComponentBuilder
 import com.balance.sample.autoservice.ComponentConstants
 import com.balance.sample.autoservice.ComponentManager
+import com.balance.sample.bottomsheet.BottomCardActivity
 import com.balance.sample.flutter.FlutterEnterActivity
 import com.balance.sample.h5offline.WebActivity
 import com.balance.sample.hook.HookActivity

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AutoTEST"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".bottomsheet.BottomCardActivity"
+            android:exported="false" />
+        <activity
             android:name=".preweb.PreWebViewActivity"
             android:exported="false" />
         <activity
