@@ -5,22 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.balance.sample.R
+import com.balance.sample.databinding.ActivityFlutterEnterBinding
 import io.flutter.embedding.android.FlutterActivity
-import kotlinx.android.synthetic.main.activity_flutter_enter.*
 
 class FlutterEnterActivity : AppCompatActivity() {
+    private lateinit var binding:ActivityFlutterEnterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityFlutterEnterBinding.inflate(layoutInflater)
         Log.e("balance",intent?.data?.toString()?:"")
         NativeMethodChannel.instance.init(this.applicationContext)
-        setContentView(R.layout.activity_flutter_enter)
-        default_route.setOnClickListener {
+        setContentView(binding.root)
+        binding.defaultRoute.setOnClickListener {
             startActivity(FlutterActivity.withCachedEngine("cache_0").build(this))
         }
-        target_route.setOnClickListener {
+        binding.targetRoute.setOnClickListener {
             startActivity(FlutterActivity.withNewEngine().initialRoute("video").build(this))
         }
-        community.setOnClickListener {
+        binding.community.setOnClickListener {
             startActivity(Intent(this,CommunityActivity::class.java))
         }
 //        startActivityForResult(Intent(this,CommunityActivity::class.java),1000)

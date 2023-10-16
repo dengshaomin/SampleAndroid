@@ -4,18 +4,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
-import com.balance.sample.R
+import com.balance.sample.databinding.ActivityWebBinding
 import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.ZipUtils
-import kotlinx.android.synthetic.main.activity_web.*
 import java.io.File
 
 class WebActivity : AppCompatActivity() {
     private var url: String = "https://www.baidu.com/"
+    private lateinit var binding: ActivityWebBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web)
-        web_view.apply {
+        binding = ActivityWebBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.webView.apply {
             this.webChromeClient = object : WebChromeClient() {
                 override fun onReceivedTitle(view: WebView?, title: String?) {
                     super.onReceivedTitle(view, title)
@@ -58,6 +59,6 @@ class WebActivity : AppCompatActivity() {
         }?.map {
             ZipUtils.unzipFile(it,File(miniDir,it.nameWithoutExtension))
         }
-        web_view.loadUrl(Uri.fromFile(File(miniDir,"h5_lab/dist/index.html")).toString())
+        binding.webView.loadUrl(Uri.fromFile(File(miniDir,"h5_lab/dist/index.html")).toString())
     }
 }

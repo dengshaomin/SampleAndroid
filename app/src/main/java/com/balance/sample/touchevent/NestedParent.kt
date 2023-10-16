@@ -10,7 +10,6 @@ import android.view.ViewConfiguration
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.balance.sample.R
-import kotlinx.android.synthetic.main.activity_touch.view.*
 
 class NestedParent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -18,6 +17,7 @@ class NestedParent @JvmOverloads constructor(
     private lateinit var contentView: View
     private lateinit var childRecycler: RecyclerView
     private lateinit var floatView: View
+    private var nested_list:View = findViewById(R.id.nested_list)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         nested_list.layoutParams.height = measuredHeight - floatView.measuredHeight
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -30,7 +30,7 @@ class NestedParent @JvmOverloads constructor(
         childRecycler = findViewById(R.id.nested_list)
     }
 
-    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+    override fun onTouchEvent(ev: MotionEvent): Boolean {
         if (scrollY >= contentView.height) {
             return true
         }

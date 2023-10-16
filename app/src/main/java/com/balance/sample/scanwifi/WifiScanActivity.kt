@@ -4,14 +4,12 @@ import android.Manifest
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Build
-import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.balance.sample.R
+import com.balance.sample.databinding.ActivityWifiScanBinding
 import com.blankj.utilcode.util.LogUtils
 import com.tbruyelle.rxpermissions3.RxPermissions
-import kotlinx.android.synthetic.main.activity_wifi_scan.*
 
 class WifiScanActivity : AppCompatActivity() {
     /**
@@ -22,11 +20,12 @@ class WifiScanActivity : AppCompatActivity() {
         Manifest.permission.CHANGE_WIFI_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
-
+    private lateinit var binding: ActivityWifiScanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wifi_scan)
-        scan.setOnClickListener {
+        binding = ActivityWifiScanBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.scan.setOnClickListener {
             RxPermissions(this).request(*low).subscribe {
                 if (it) {
                     scan()

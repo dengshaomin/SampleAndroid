@@ -9,13 +9,16 @@ import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balance.sample.R
-import kotlinx.android.synthetic.main.activity_touch.*
+import com.balance.sample.databinding.ActivityTouchBinding
+import com.balance.sample.databinding.ActivityWifiScanBinding
 
 class TouchActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityTouchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_touch)
-        nested_list.apply {
+        binding = ActivityTouchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.nestedList.apply {
             layoutManager = LinearLayoutManager(this@TouchActivity)
             adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 override fun onCreateViewHolder(

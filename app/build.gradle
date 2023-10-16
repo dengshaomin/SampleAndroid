@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android-extensions'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 //kapt {
 //    arguments {
@@ -12,7 +13,7 @@ plugins {
 //    }
 //}
 android {
-    compileSdk 30
+    compileSdk 33
     defaultConfig {
         applicationId "com.balance.sample"
         minSdk 21
@@ -20,7 +21,11 @@ android {
         compileSdk 31
         versionCode 1
         versionName "1.0"
+        multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
     }
     signingConfigs {
         debug {
@@ -40,8 +45,8 @@ android {
             signingConfig signingConfigs.debug
         }
         debug {
-            minifyEnabled true
-            shrinkResources true
+//            minifyEnabled true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -59,7 +64,7 @@ android {
     sourceSets {
         main.jniLibs.srcDirs = ['libs']
     }
-    viewBinding{
+    viewBinding {
         enabled = true
     }
 }
@@ -120,4 +125,20 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'com.github.tbruyelle:rxpermissions:0.12'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.4'
+    //注意和root/build.gradle中版本保持一致佛则报错：is not abstract and does not implement abstract member public abstract fun getActionId(): Int defined in androidx.navigation.NavDirections
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation 'com.android.support:multidex:1.0.3'
+//    // OpenCV基础库（*必须）
+//    implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.3.0'
+//    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.3.0'
+//    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.3.0'
+//    // 微信二维码识别功能（可选）
+//    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.3.0'
+//    // OpenCV二维码识别功能（可选）
+//    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:1.3.0'
+//    implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.4.0'
+//    //条码识别 (可选)
+//    implementation 'com.github.jenly1314.MLKit:mlkit-barcode-scanning:1.4.0'
+
 }

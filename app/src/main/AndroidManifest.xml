@@ -16,8 +16,17 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AutoTEST"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".fragment.callback.FragmentCallBackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.callback.ImagePickActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.navigation.FragmentNavigationActivity"
+            android:exported="false" />
         <activity
             android:name=".bottomsheet.BottomCardActivity"
             android:exported="false" />

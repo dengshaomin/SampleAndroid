@@ -5,14 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.ReflectUtils
 import com.balance.sample.R
-import kotlinx.android.synthetic.main.activity_hook.*
+import com.balance.sample.databinding.ActivityHookBinding
 
 
 class HookActivity : AppCompatActivity() {
+    private lateinit var binding:ActivityHookBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hook)
-        edit_text.setText(ClipboardUtils.getText())
+        binding = ActivityHookBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.editText.setText(ClipboardUtils.getText())
         val cls = TestClass()
         cls.getName()
         ReflectUtils.reflect(cls).field("a")

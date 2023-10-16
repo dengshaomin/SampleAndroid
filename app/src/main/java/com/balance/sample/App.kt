@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ClipData
 import android.os.IBinder
 import android.os.IInterface
+import android.support.multidex.MultiDex
 import android.util.Log
 import com.balance.sample.preweb.WebFactory
 import io.flutter.embedding.engine.FlutterEngine
@@ -20,6 +21,7 @@ class App : Application() {
     lateinit var flutterEngine: FlutterEngine
     override fun onCreate() {
         super.onCreate()
+        MultiDex.install(this)
         application  = this
         // Instantiate a FlutterEngine.
         flutterEngine = FlutterEngine(this)
