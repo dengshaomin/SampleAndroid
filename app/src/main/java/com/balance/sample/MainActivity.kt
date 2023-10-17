@@ -1,6 +1,5 @@
 package com.balance.sample
 
-import com.balance.sample.asyncloadview.CustomerAsyncLayoutInflater
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle

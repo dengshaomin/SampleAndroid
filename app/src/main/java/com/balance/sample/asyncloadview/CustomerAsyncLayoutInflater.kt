@@ -14,6 +14,7 @@ package com.balance.sample.asyncloadview/*
  * limitations under the License.
  */
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Message
@@ -24,7 +25,7 @@ import androidx.annotation.UiThread
 import androidx.core.util.Pools.SynchronizedPool
 import java.util.concurrent.ArrayBlockingQueue
 
-class CustomerAsyncLayoutInflater(val context: Context) {
+class CustomerAsyncLayoutInflater1(val context: Context) {
     companion object {
         private const val TAG = "com.balance.sample.asyncloadview.CustomerAsyncLayoutInflater"
     }
@@ -32,12 +33,10 @@ class CustomerAsyncLayoutInflater(val context: Context) {
     var mInflateThread = InflateThread.instance()
     private val mHandlerCallback = Handler.Callback { msg ->
         val request = msg.obj as InflateRequest
-//        if (request.view == null) {
-//            request.view = request.cls?.getConstructor(Context::class.java)
-//                ?.newInstance(request?.inflater?.context)
-//        }
-        request.callback?.onInflateFinished(
-            request.view, request.parent
+        (request.callback as? (InflateBean<View>) -> Unit)?.invoke(
+            InflateBean<View>().apply {
+                view = request.view
+            }
         )
         mInflateThread.releaseRequest(request)
         true
@@ -45,35 +44,26 @@ class CustomerAsyncLayoutInflater(val context: Context) {
     var mHandler: Handler = Handler(mHandlerCallback)
 
     @UiThread
-    fun <T : Class<out View>> inflate(
-        cls: T, parent: ViewGroup?,
-        callback: CustomerOnInflateFinishedListener?
+    inline fun <reified T> inflate(
+        noinline callback: (InflateBean<T>) -> Unit
     ) {
         if (callback == null) {
             throw NullPointerException("callback argument may not be null!")
         }
         val request = mInflateThread.obtainRequest()
         request.inflater = this
-        request.cls = cls
-        request.parent = parent
+        request.cls = T::class.java
         request.callback = callback
         mInflateThread.enqueue(request)
     }
 
 
-    interface CustomerOnInflateFinishedListener {
-        fun onInflateFinished(
-            view: View?,
-            parent: ViewGroup?
-        )
-    }
 
     class InflateRequest internal constructor() {
-        var inflater: CustomerAsyncLayoutInflater? = null
-        var parent: ViewGroup? = null
-        var cls: Class<out View>? = null
+        var inflater: CustomerAsyncLayoutInflater1? = null
+        var cls: Any? = null
         var view: View? = null
-        var callback: CustomerOnInflateFinishedListener? = null
+        var callback: Any? = null
     }
 
 
@@ -84,6 +74,7 @@ class CustomerAsyncLayoutInflater(val context: Context) {
         // Extracted to its own method to ensure locals have a constrained liveness
         // scope by the GC. This is needed to avoid keeping previous request references
         // alive for an indeterminate amount of time, see b/33158143 for details
+        @SuppressLint("LongLogTag")
         private fun runInner() {
             val request: InflateRequest
             request = try {
@@ -94,8 +85,7 @@ class CustomerAsyncLayoutInflater(val context: Context) {
                 return
             }
             try {
-                request.view = request.cls?.getConstructor(Context::class.java)
-                    ?.newInstance(request?.inflater?.context)
+                request.view = ((request.cls as Class<View>).getConstructor(Context::class.java)).newInstance(request.inflater?.context)
             } catch (ex: RuntimeException) {
                 // Probably a Looper failure, retry on the UI thread
                 Log.w(
@@ -125,7 +115,6 @@ class CustomerAsyncLayoutInflater(val context: Context) {
         fun releaseRequest(obj: InflateRequest) {
             obj.callback = null
             obj.inflater = null
-            obj.parent = null
             obj.cls = null
             obj.view = null
             mRequestPool.release(obj)
@@ -149,5 +138,11 @@ class CustomerAsyncLayoutInflater(val context: Context) {
             }
         }
     }
+
+}
+
+class InflateBean<T> {
+    var view: T? = null
+    var parent: ViewGroup? = null
 
 }

@@ -17,7 +17,7 @@ class NestedParent @JvmOverloads constructor(
     private lateinit var contentView: View
     private lateinit var childRecycler: RecyclerView
     private lateinit var floatView: View
-    private var nested_list:View = findViewById(R.id.nested_list)
+    private lateinit var nested_list:View
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         nested_list.layoutParams.height = measuredHeight - floatView.measuredHeight
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -28,6 +28,7 @@ class NestedParent @JvmOverloads constructor(
         contentView = findViewById(R.id.nested_content)
         floatView = findViewById(R.id.nested_floating)
         childRecycler = findViewById(R.id.nested_list)
+       nested_list = findViewById(R.id.nested_list)
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
