@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".asyncloadview.AsyncLoadViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".fragment.callback.FragmentCallBackActivity"
             android:exported="false" />
         <activity
