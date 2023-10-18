@@ -3,32 +3,22 @@ package com.balance.sample.viewmodel
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.asynclayoutinflater.view.AsyncLayoutInflater
-import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.balance.sample.R
-import com.balance.sample.databinding.ActivityAsyncLoadViewBinding
 import com.balance.sample.databinding.ActivityViewModelBinding
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SizeUtils
 
 class ViewModelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewModelBinding
     //通过by和provider创建获取的是同一个viewmodel；或者通过hilt也可以达到复用的目的
     val viewModel by viewModels<TestViewModel>()
-    lateinit var  providerViewModel :TestViewModel
+    lateinit var  providerViewModel : TestViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         providerViewModel = ViewModelProvider(this)[TestViewModel::class.java]

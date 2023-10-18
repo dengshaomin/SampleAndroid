@@ -15,6 +15,7 @@ import com.balance.sample.autoservice.ComponentBuilder
 import com.balance.sample.autoservice.ComponentConstants
 import com.balance.sample.autoservice.ComponentManager
 import com.balance.sample.databinding.ActivityMainBinding
+import com.balance.sample.diffutils.DiffUtilsActivity
 import com.balance.sample.flutter.FlutterEnterActivity
 import com.balance.sample.fragment.callback.FragmentCallBackActivity
 import com.balance.sample.fragment.navigation.FragmentNavigationActivity
@@ -30,6 +31,9 @@ import com.blankj.utilcode.util.SizeUtils
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val items = mutableListOf<ItemAction>().apply {
+        add(ItemAction("DiffUtils 提高reyclerview效率") {
+            startActivity(Intent(this@MainActivity, DiffUtilsActivity::class.java))
+        })
 
         add(ItemAction("ViewModel ") {
             startActivity(Intent(this@MainActivity, ViewModelActivity::class.java))
