@@ -23,12 +23,17 @@ import com.balance.sample.hook.HookActivity
 import com.balance.sample.preweb.PreWebViewActivity
 import com.balance.sample.scanwifi.WifiScanActivity
 import com.balance.sample.touchevent.TouchActivity
+import com.balance.sample.viewmodel.ViewModelActivity
 import com.balance.sample.viewpager.ViewPagerActivity
 import com.blankj.utilcode.util.SizeUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val items = mutableListOf<ItemAction>().apply {
+
+        add(ItemAction("ViewModel ") {
+            startActivity(Intent(this@MainActivity, ViewModelActivity::class.java))
+        })
         add(ItemAction("Asynclayoutinflater 异步创建布局") {
             startActivity(
                 Intent(
