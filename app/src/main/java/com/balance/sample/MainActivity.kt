@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,11 +27,16 @@ import com.balance.sample.scanwifi.WifiScanActivity
 import com.balance.sample.touchevent.TouchActivity
 import com.balance.sample.viewmodel.ViewModelActivity
 import com.balance.sample.viewpager.ViewPagerActivity
+import com.balance.sample.websocket.WebSocketActivity
 import com.blankj.utilcode.util.SizeUtils
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val items = mutableListOf<ItemAction>().apply {
+        add(ItemAction("okhttp websocket") {
+            startActivity(Intent(this@MainActivity, WebSocketActivity::class.java))
+        })
         add(ItemAction("DiffUtils 提高reyclerview效率") {
             startActivity(Intent(this@MainActivity, DiffUtilsActivity::class.java))
         })
@@ -118,8 +124,8 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             adapter = ListAdapter(items)
-        }
 
+        }
 
     }
 
