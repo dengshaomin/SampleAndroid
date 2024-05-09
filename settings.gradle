@@ -27,3 +27,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SampleAndroid"
 include ':app'
+include ':nativelib'

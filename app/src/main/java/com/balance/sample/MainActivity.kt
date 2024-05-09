@@ -29,6 +29,9 @@ import com.balance.sample.viewmodel.ViewModelActivity
 import com.balance.sample.viewpager.ViewPagerActivity
 import com.balance.sample.websocket.WebSocketActivity
 import com.blankj.utilcode.util.SizeUtils
+import com.example.nativelib.NativeLib
+
+//import com.example.nativelib.NativeLib
 
 
 class MainActivity : AppCompatActivity() {
@@ -113,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val z = NativeLib().stringFromJNI()
         binding.list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -124,7 +128,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             adapter = ListAdapter(items)
-
         }
 
     }

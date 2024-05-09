@@ -1,14 +1,20 @@
 package com.balance.sample.websocket
 
 import android.os.Bundle
+import android.text.Html
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balance.sample.databinding.ActivityWebSocketBinding
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -21,10 +27,11 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
-import java.io.EOFException
-import java.net.SocketException
+import ua.naiksoftware.stomp.Stomp
+import ua.naiksoftware.stomp.dto.LifecycleEvent
+import ua.naiksoftware.stomp.dto.StompMessage
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLException
+
 
 class WebSocketActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebSocketBinding
@@ -76,11 +83,58 @@ class WebSocketActivity : AppCompatActivity() {
                 }
 
                 override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                    (holder.itemView as TextView).text = msgs[position]
+                    (holder.itemView as TextView).text = Html.fromHtml(msgs[position])
                 }
 
             }
         }
+//        startStomp()
+    }
+
+    private fun startStomp() {
+        val mStompClient = Stomp.over(
+            Stomp.ConnectionProvider.OKHTTP,
+            "ws://pe-dingdong.nio.com/pe/dingdong/msg/websocket"
+        )
+//        wss://pe-dingdong.nio.com/pe/dingdong/msg/958/y1agrlsb/websocket?ws_app_id=100119
+        mStompClient.withClientHeartbeat(1000).withServerHeartbeat(1000)
+        val compositeDisposable = CompositeDisposable()
+        val dispLifecycle: Disposable = mStompClient.lifecycle()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { lifecycleEvent: LifecycleEvent ->
+                when (lifecycleEvent.type) {
+                    LifecycleEvent.Type.OPENED -> {
+                        val a = 1
+                    }
+
+                    LifecycleEvent.Type.ERROR -> {
+                        val a = 1
+                    }
+
+                    LifecycleEvent.Type.CLOSED -> {
+                        val a = 1
+                    }
+
+                    LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT -> {
+                        val a = 1
+                    }
+                }
+            }
+        val dispTopic = mStompClient.topic("/room/h5/charge-map")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ topicMessage: StompMessage ->
+                LogUtils.e("nothing",topicMessage?.payload?.toString())
+            }
+            ) { throwable: Throwable? ->
+                val a = 1
+            }
+
+        compositeDisposable.add(dispTopic)
+        compositeDisposable.add(dispLifecycle)
+        mStompClient.connect()
+
     }
 
     private val netChangeListener = object : NetworkUtils.OnNetworkStatusChangedListener {
@@ -97,7 +151,7 @@ class WebSocketActivity : AppCompatActivity() {
     }
 
     private fun initNet() {
-        NetworkUtils.registerNetworkStatusChangedListener(netChangeListener)
+//        NetworkUtils.registerNetworkStatusChangedListener(netChangeListener)
     }
 
     override fun onDestroy() {
@@ -112,7 +166,7 @@ class WebSocketActivity : AppCompatActivity() {
          */
         override fun onOpen(webSocket: WebSocket?, response: Response?) {
             connected = true
-            this@WebSocketActivity.webSocket = webSocket
+//            this@WebSocketActivity.webSocket = webSocket
             changeButtonState()
             addMsg("connected success")
         }
@@ -152,18 +206,24 @@ class WebSocketActivity : AppCompatActivity() {
          */
         override fun onFailure(webSocket: WebSocket?, t: Throwable?, response: Response?) {
             addMsg("fail:${response?.message() ?: t?.message ?: ""}")
+//            connected = false
+//            changeButtonState()
+//            tryReConnect()
             //SocketException 通常意味着底层TCP连接出现了错误，可能是网络断开
             //EOFException 通常表示连接意外关闭，也可能是服务端关闭了连接
-            if (t is SocketException || t is EOFException || t is SSLException) {
-                connected = false
-                changeButtonState()
-                tryReConnect()
-            }
+//            if (t is SocketException || t is EOFException || t is SSLException) {
+            connected = false
+            changeButtonState()
+            tryReConnect()
+//            }
         }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun tryReConnect() {
+        if (reConnectionJob?.isActive == true) {
+            return
+        }
         reConnectionJob?.cancel()
         reConnectionJob = null
         reConnectionJob = GlobalScope.launch {
@@ -181,8 +241,12 @@ class WebSocketActivity : AppCompatActivity() {
         if (connected) {
             return
         }
-        httpClient.newWebSocket(
-            Request.Builder().url(binding.etUrl.text.trim().toString()).build(), listener
+        if (webSocket != null) {
+            webSocket?.close(1000, "")
+            webSocket = null
+        }
+        webSocket = httpClient.newWebSocket(
+            Request.Builder().url("ws://pe-dingdong-test.nio.com/pe/dingdong/toc/ws?device_id=1&room_id=2").build(), listener
         )
     }
 
